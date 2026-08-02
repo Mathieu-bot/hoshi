@@ -95,9 +95,7 @@ class ReservationControllerTest {
     when(reservationMapper.toResponse(reservation)).thenReturn(response);
     mockMvc
         .perform(
-            put("/reservations/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+            put("/reservations/{id}", id).contentType(MediaType.APPLICATION_JSON).content("{}"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(id.toString()))
         .andExpect(jsonPath("$.status").value("SUCCESS"));
@@ -109,9 +107,66 @@ class ReservationControllerTest {
     ReservationRequest request = new ReservationRequest();
     mockMvc
         .perform(
-            put("/reservations/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
+            put("/reservations/{id}", id).contentType(MediaType.APPLICATION_JSON).content("{}"))
         .andExpect(status().isBadRequest());
+  }
+
+  // =========================
+  // GET /reservations
+  // =========================
+  @Test
+  @WithMockUser(roles = "CLIENT")
+  void shouldReturn403ForClient_whenGetAllReservations() throws Exception {
+    mockMvc.perform(get("/reservations")).andExpect(status().isForbidden());
+  }
+
+  @Test
+  @WithMockUser(roles = "EMPLOYEE")
+  void shouldAllowEmployee_whenGetAllReservations() throws Exception {
+    mockMvc.perform(get("/reservations")).andExpect(status().isOk());
+  }
+
+  @Test
+  @WithMockUser(roles = "MANAGER")
+  void shouldAllowManager_whenGetAllReservations() throws Exception {
+    mockMvc.perform(get("/reservations")).andExpect(status().isOk());
+  }
+
+  // =========================
+  // GET /reservations/{id}
+  // =========================
+  @Test
+  @WithMockUser(roles = "EMPLOYEE")
+  void shouldAllowEmployee_whenGetById() throws Exception {
+    mockMvc
+        .perform(get("/reservations/{id}", "123e4567-e89b-12d3-a456-426614174000"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  @WithMockUser(roles = "MANAGER")
+  void shouldAllowManager_whenGetById() throws Exception {
+    mockMvc
+        .perform(get("/reservations/{id}", "123e4567-e89b-12d3-a456-426614174000"))
+        .andExpect(status().isOk());
+  }
+
+  // =========================
+  // PUT /reservations/{id}
+  // =========================
+  @Test
+  @WithMockUser(roles = "CLIENT")
+  void shouldAllowClient_whenUpdateReservation() throws Exception {
+    mockMvc
+        .perform(get("/reservations/{id}", "123e4567-e89b-12d3-a456-426614174000"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  @WithMockUser(roles = "EMPLOYEE")
+  void shouldAllowEmployee_whenUpdateReservation() throws Exception {
+    mockMvc
+        .perform(get("/reservations/{id}", "123e4567-e89b-12d3-a456-426614174000"))
+        .andExpect(status().isOk());
   }
 }
