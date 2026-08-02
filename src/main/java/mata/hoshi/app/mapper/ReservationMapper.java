@@ -17,24 +17,21 @@ public interface ReservationMapper {
   @Mapping(source = "seats", target = "seatIds")
   ReservationResponse toResponse(Reservation reservation);
 
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createdAt", ignore = true)
+  @Mapping(target = "status", ignore = true)
+  @Mapping(target = "user", ignore = true)
+  @Mapping(target = "projection", ignore = true)
   @Mapping(source = "seatIds", target = "seats")
   Reservation toEntity(ReservationRequest request);
 
   default List<UUID> mapSeatsToIds(List<Seat> seats) {
-
-    if (seats == null) {
-      return List.of();
-    }
-
+    if (seats == null) return List.of();
     return seats.stream().map(Seat::getId).toList();
   }
 
   default List<Seat> mapIdsToSeats(List<UUID> ids) {
-
-    if (ids == null) {
-      return List.of();
-    }
-
+    if (ids == null) return List.of();
     return ids.stream()
         .map(
             id -> {
