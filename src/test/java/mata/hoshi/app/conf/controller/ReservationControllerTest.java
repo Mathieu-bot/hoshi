@@ -1,12 +1,14 @@
 package mata.hoshi.app.conf.controller;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.http.RequestEntity.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import mata.hoshi.app.dto.reservation.request.ReservationRequest;
 import mata.hoshi.app.dto.reservation.response.ReservationResponse;
 import mata.hoshi.app.endpoint.rest.controller.health.ReservationController;
 import mata.hoshi.app.mapper.ReservationMapper;
@@ -76,5 +78,40 @@ class ReservationControllerTest {
     mockMvc
         .perform(get("/reservations/{id}", id).contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void shouldUpdateReservation() throws Exception {
+    UUID id = UUID.randomUUID();
+    ReservationRequest request = new ReservationRequest();
+    request.setSeatIds(List.of(UUID.randomUUID(), UUID.randomUUID()));
+    Reservation reservation = new Reservation();
+    reservation.setId(id);
+    ReservationResponse response = new ReservationResponse();
+    response.setId(id);
+    response.setStatus("SUCCESS");
+    response.setCreatedAt(Instant.now());
+    when(reservationService.update(id, request)).thenReturn(reservation);
+    when(reservationMapper.toResponse(reservation)).thenReturn(response);
+    mockMvc
+        .perform(
+            put("/reservations/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(id.toString()))
+        .andExpect(jsonPath("$.status").value("SUCCESS"));
+  }
+
+  @Test
+  void shouldReturn400WhenRequestInvalid() throws Exception {
+    UUID id = UUID.randomUUID();
+    ReservationRequest request = new ReservationRequest();
+    mockMvc
+        .perform(
+            put("/reservations/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest());
   }
 }
