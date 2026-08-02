@@ -50,4 +50,31 @@ class ReservationControllerTest {
         .andExpect(jsonPath("$[0].id").value(id.toString()))
         .andExpect(jsonPath("$[0].status").value("PENDING"));
   }
+
+  @Test
+  void shouldReturnReservationById() throws Exception {
+    UUID id = UUID.randomUUID();
+    Reservation reservation = new Reservation();
+    reservation.setId(id);
+    ReservationResponse response = new ReservationResponse();
+    response.setId(id);
+    response.setStatus("PENDING");
+    response.setCreatedAt(Instant.now());
+    when(reservationService.findById(id)).thenReturn(reservation);
+    when(reservationMapper.toResponse(reservation)).thenReturn(response);
+    mockMvc
+        .perform(get("/reservations/{id}", id).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(id.toString()))
+        .andExpect(jsonPath("$.status").value("PENDING"));
+  }
+
+  @Test
+  void shouldReturn404WhenReservationNotFound() throws Exception {
+    UUID id = UUID.randomUUID();
+    when(reservationService.findById(id)).thenThrow(new RuntimeException("Reservation not found"));
+    mockMvc
+        .perform(get("/reservations/{id}", id).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+  }
 }
