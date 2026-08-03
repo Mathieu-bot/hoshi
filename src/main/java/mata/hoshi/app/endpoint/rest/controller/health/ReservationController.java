@@ -1,5 +1,6 @@
 package mata.hoshi.app.endpoint.rest.controller.health;
 
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +25,11 @@ public class ReservationController {
 
     List<Reservation> reservations = reservationService.findAll();
 
-    List<ReservationResponse> response =
-        reservations.stream().map(reservationMapper::toResponse).toList();
-
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(reservations.stream().map(reservationMapper::toResponse).toList());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ReservationResponse> getReservationById(@PathVariable UUID id) {
+  public ResponseEntity<ReservationResponse> getById(@PathVariable UUID id) {
 
     Reservation reservation = reservationService.findById(id);
 
@@ -39,8 +37,8 @@ public class ReservationController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<ReservationResponse> updateReservation(
-      @PathVariable UUID id, @RequestBody ReservationRequest request) {
+  public ResponseEntity<ReservationResponse> update(
+      @PathVariable UUID id, @Valid @RequestBody ReservationRequest request) {
 
     Reservation updated = reservationService.update(id, request);
 
