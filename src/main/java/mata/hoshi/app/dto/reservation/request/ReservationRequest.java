@@ -1,8 +1,14 @@
 package mata.hoshi.app.dto.reservation.request;
 
-import java.util.List;
+import jakarta.validation.constraints.NotEmpty;
+import java.util.Set;
 import java.util.UUID;
+import lombok.Data;
 
+@Data
 public class ReservationRequest {
-  private List<UUID> seatIds;
+
+  @NotEmpty private Set<UUID> seatIds;
+
+  private UUID projectionId;
 }
