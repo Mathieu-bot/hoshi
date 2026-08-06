@@ -1,9 +1,10 @@
-package mata.hoshi.app.service;
+package mata.hoshi.app.service.impl;
 
 import java.util.List;
 import java.util.UUID;
 import mata.hoshi.app.dto.reservation.request.ReservationRequest;
 import mata.hoshi.app.model.Reservation;
+import mata.hoshi.app.service.ReservationService;
 import org.springframework.stereotype.Service;
 
 @Service

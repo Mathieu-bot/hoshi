@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
 import mata.hoshi.app.dto.reservation.request.ReservationRequest;
+import mata.hoshi.app.service.impl.ReservationServiceImpl;
 import org.junit.jupiter.api.Test;
 
 class ReservationServiceImplTest {
