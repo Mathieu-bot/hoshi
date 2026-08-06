@@ -46,11 +46,7 @@ class MovieControllerTest {
     Movie movie = movieMapper.toModel(request);
 
     Movie updated =
-        Movie.builder()
-            .id(id)
-            .title(request.getTitle())
-            .genres(request.getGenres())
-            .build();
+        Movie.builder().id(id).title(request.getTitle()).genres(request.getGenres()).build();
 
     MovieResponse response = new MovieResponse();
     response.setId(id);
