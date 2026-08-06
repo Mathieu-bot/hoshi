@@ -7,7 +7,7 @@ import mata.hoshi.app.model.Projection;
 
 public interface ProjectionService {
 
-    List<Projection> findAll();
+  List<Projection> findAll();
 
-    Projection update(UUID id, ProjectionRequest request);
+  Projection update(UUID id, ProjectionRequest request);
 }

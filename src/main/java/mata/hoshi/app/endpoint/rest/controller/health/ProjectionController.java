@@ -16,29 +16,23 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProjectionController {
 
-    private final ProjectionService projectionService;
-    private final ProjectionMapper projectionMapper;
+  private final ProjectionService projectionService;
+  private final ProjectionMapper projectionMapper;
 
-    @GetMapping
-    public ResponseEntity<List<ProjectionResponse>> getAll() {
+  @GetMapping
+  public ResponseEntity<List<ProjectionResponse>> getAll() {
 
-        List<Projection> projections = projectionService.findAll();
+    List<Projection> projections = projectionService.findAll();
 
-        return ResponseEntity.ok(
-                projections.stream()
-                        .map(projectionMapper::toResponse)
-                        .toList()
-        );
-    }
+    return ResponseEntity.ok(projections.stream().map(projectionMapper::toResponse).toList());
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProjectionResponse> update(
-            @PathVariable UUID id,
-            @RequestBody ProjectionRequest request
-    ) {
+  @PutMapping("/{id}")
+  public ResponseEntity<ProjectionResponse> update(
+      @PathVariable UUID id, @RequestBody ProjectionRequest request) {
 
-        Projection updated = projectionService.update(id, request);
+    Projection updated = projectionService.update(id, request);
 
-        return ResponseEntity.ok(projectionMapper.toResponse(updated));
-    }
+    return ResponseEntity.ok(projectionMapper.toResponse(updated));
+  }
 }

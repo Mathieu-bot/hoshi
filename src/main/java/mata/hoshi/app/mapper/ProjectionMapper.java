@@ -6,15 +6,11 @@ import mata.hoshi.app.model.Projection;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-
 @Mapper(componentModel = "spring")
 public interface ProjectionMapper {
 
+  ProjectionResponse toResponse(Projection projection);
 
-    ProjectionResponse toResponse(Projection projection);
-
-
-    @Mapping(target = "id", ignore = true)
-    Projection toModel(ProjectionRequest request);
-
+  @Mapping(target = "id", ignore = true)
+  Projection toModel(ProjectionRequest request);
 }

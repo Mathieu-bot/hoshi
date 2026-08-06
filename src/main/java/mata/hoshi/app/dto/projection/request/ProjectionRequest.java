@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class ProjectionRequest {
 
-    private Instant datetime;
+  private Instant datetime;
 
-    private BigDecimal seatPrice;
+  private BigDecimal seatPrice;
 
-    private UUID movieId;
+  private UUID movieId;
 
-    private UUID roomId;
+  private UUID roomId;
 }

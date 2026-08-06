@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProjectionServiceImpl implements ProjectionService {
 
-    @Override
-    public List<Projection> findAll() {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+  @Override
+  public List<Projection> findAll() {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 
-    @Override
-    public Projection update(UUID id, ProjectionRequest request) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+  @Override
+  public Projection update(UUID id, ProjectionRequest request) {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 }
