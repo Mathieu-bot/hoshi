@@ -21,6 +21,7 @@ public class FacadeIT {
   @BeforeAll
   static void beforeAll() {
     POSTGRES_CONF.start();
+
     getRuntime()
         // Do _not_ stop postgresTest in afterAll as it is shared between multiple subclasses of
         // FacadeTest.
