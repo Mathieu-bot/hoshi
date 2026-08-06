@@ -9,8 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
 
-    MovieResponse toResponse(Movie movie);
+  MovieResponse toResponse(Movie movie);
 
-    @Mapping(target = "id", ignore = true)
-    Movie toModel(MovieRequest request);
+  @Mapping(target = "id", ignore = true)
+  Movie toModel(MovieRequest request);
 }

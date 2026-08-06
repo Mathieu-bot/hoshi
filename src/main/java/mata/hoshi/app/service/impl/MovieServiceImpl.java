@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
 
-    @Override
-    public Movie update(Movie movie) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+  @Override
+  public Movie update(Movie movie) {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 
-    @Override
-    public Movie findById(UUID id) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
+  @Override
+  public Movie findById(UUID id) {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 }

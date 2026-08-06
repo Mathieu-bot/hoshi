@@ -7,7 +7,7 @@ import mata.hoshi.app.model.Genre;
 @Data
 public class MovieRequest {
 
-    private String title;
+  private String title;
 
-    private Set<Genre> genres;
+  private Set<Genre> genres;
 }

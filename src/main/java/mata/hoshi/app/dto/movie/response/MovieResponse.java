@@ -8,9 +8,9 @@ import mata.hoshi.app.model.Genre;
 @Data
 public class MovieResponse {
 
-    private UUID id;
+  private UUID id;
 
-    private String title;
+  private String title;
 
-    private Set<Genre> genres;
+  private Set<Genre> genres;
 }

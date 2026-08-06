@@ -5,7 +5,7 @@ import mata.hoshi.app.model.Movie;
 
 public interface MovieService {
 
-    Movie update(Movie movie);
+  Movie update(Movie movie);
 
-    Movie findById(UUID id);
+  Movie findById(UUID id);
 }
